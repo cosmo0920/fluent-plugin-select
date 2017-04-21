@@ -3,6 +3,11 @@ module Fluent
   class SelectOutput < Fluent::Output
     Fluent::Plugin.register_output('select', self)
 
+    # Define `router` method of v0.12 to support v0.10 or earlier
+    unless method_defined?(:router)
+      define_method("router") { Fluent::Engine }
+    end
+
     config_param :select, :string
     config_param :add_prefix, :string, :default => nil
     config_param :tag, :string, :default => nil
@@ -23,9 +28,9 @@ module Fluent
       begin
         output_es = do_select(tag, es)
         if @mode == "add_prefix"
-          Fluent::Engine::emit_stream(@add_prefix + "." + tag, output_es)
+          router.emit_stream(@add_prefix + "." + tag, output_es)
         else
-          Fluent::Engine::emit_stream(@tag, output_es)
+          router.emit_stream(@tag, output_es)
         end
         chain.next
         output_es #for test
