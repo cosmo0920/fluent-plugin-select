@@ -25,7 +25,7 @@ class SelectOutputTest < Test::Unit::TestCase
     end
     emits = d1.emits
     assert_equal 1, emits.length
-    assert_equal ["prefix.#{tag}", time.to_i, record], emits[0]
+    assert_equal ["prefix.#{tag}", Time.at(time), record], emits[0]
   end
 
   def test_match_time
@@ -39,7 +39,7 @@ class SelectOutputTest < Test::Unit::TestCase
     end
     emits = d1.emits
     assert_equal 1, emits.length
-    assert_equal ["prefix.#{tag}", time.to_i, record], emits[0]
+    assert_equal ["prefix.#{tag}", Time.at(time), record], emits[0]
   end
 
 
@@ -54,7 +54,7 @@ class SelectOutputTest < Test::Unit::TestCase
     end
     emits = d1.emits
     assert_equal 1, emits.length
-    assert_equal ["prefix.#{tag}", time.to_i, record], emits[0]
+    assert_equal ["prefix.#{tag}", Time.at(time), record], emits[0]
   end
 
   def test_not_match
@@ -101,7 +101,7 @@ class SelectOutputTest < Test::Unit::TestCase
     end
     emits = d1.emits
     assert_equal 1, emits.length
-    assert_equal ["prefix.#{tag}", time.to_i, record], emits[0]
+    assert_equal ["prefix.#{tag}", Time.at(time), record], emits[0]
   end
 
   def test_config_error
